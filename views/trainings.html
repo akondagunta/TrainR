@@ -1,0 +1,20 @@
+<div class="container trainings-page">
+  <div class="post row" ng-show="user.uid === training.creatorUID" ng-repeat="training in trainings">
+    <div class="col-xs-1">
+    </div>
+    <div class="col-md-9 col-xs-11">
+      <div class="info">
+        <a ng-href="#/trainings/{{ training.$id }}">
+          <span>{{training.id}} - {{ training.name }}</span>
+        </a><br>
+          <span class="url">Page URL: {{ training.pageURL }}</span>
+      </div>
+      <div>
+        <span>submitted by <a ng-href="#/users/{{ training.creatorUID }}">{{ training.creator }}</a></span>
+        &mdash;
+        <a ng-href="#/trainings/{{ training.$id }}">steps</a>
+        <a ng-click="deleteTraining(training)">delete</a>
+      </div>
+    </div>
+  </div>
+</div>

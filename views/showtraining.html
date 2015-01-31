@@ -39,11 +39,21 @@
 	<div>
         <b>Page: </b>{{step.page}}
 	</div>
+        <p class="author">posted by
+          <a ng-href="#/users/{{ step.creatorUID }}">
+            {{ step.creator }}
+          </a>
+	  <a 
+	    ng-click="deleteStep(step)"
+            ng-show="signedIn()">
+            (delete)
+          </a>
+        </p>
     </li>
 </ul>
 </div>
 
-  <div ng-repeat="step in steps" class="row cmt">
+<!--  <div ng-repeat="step in steps" class="row cmt">
     <div class="col-md-12">
       <p>Step Number: {{ step.number }}</p>
       <p>Step Content: {{ step.content }}</p>
@@ -61,7 +71,7 @@
       </a>
       </p>
     </div>
-  </div>
+  </div> -->
 
   <div class="cmt-form">
     <div ng-hide="signedIn()">

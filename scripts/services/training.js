@@ -8,8 +8,8 @@ app.factory('Training', function ($firebase, FIREBASE_URL) {
     all: trainings,
     create: function (training) {
       return trainings.$add(training).then(function(trainingRef) {
-        $firebase(ref.child('user_trainings').child(training.creatorUID))
-                        .$push(trainingRef.name());
+        $firebase(ref.child('user_trainings').child(training.creatorUID))                
+            .$push(trainingRef.name());
         return trainingRef;
       });
     },

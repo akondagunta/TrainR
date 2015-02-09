@@ -1,13 +1,8 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name inCloudTrnApp
- * @description
- * # inCloudTrnApp
- *
- * Main module of the application.
- */
+//app.constant('FIREBASE_URL', 'https://incloudtrn.firebaseio.com/');
+app.constant('FIREBASE_URL', 'https://hakunamatata.firebaseio.com/');
+
 
 var app = angular
   .module('inCloudTrnApp', [
@@ -48,6 +43,4 @@ var app = angular
       redirectTo: '/'
     });
   });
-
-app.constant('FIREBASE_URL', 'https://incloudtrn.firebaseio.com/');
 

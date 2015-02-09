@@ -1,0 +1,9 @@
+{
+  "firebase": "hakunamatata",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

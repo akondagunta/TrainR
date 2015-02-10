@@ -17,51 +17,44 @@
         </span>
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-9 col-xs-11">
+	<br><code class="language-html" data-lang="html">
+		<span class="nt">
+			&lt;script&gt;var InCloudTrnAppUrl = "https://hakunamatata.firebaseio.com"; var InCloudTrnID = "{{training.$id}}";&lt;/script&gt;
+		</span>
+	</code><br><br>
     </div>
   </div>
 
-<div class="simpleDemo">
-<ul dnd-list="steps">
-    <li ng-repeat="step in steps"
-        dnd-draggable="step"
-        dnd-moved="steps.splice($index, 1)"
-        dnd-effect-allowed="move"
-        dnd-selected="selected = step"
-        ng-class="{'selected': selected === item}"
-        >
-	<div>
-        <b>Content: </b>{{step.content}}
-	</div>
-	<div>
-        <b>Element: </b>{{step.element}}
-	</div>
-	<div>
-        <b>Page: </b>{{step.page}}
-	</div>
-    </li>
+<ul ng-repeat="step in steps" class="list-group">
+  <li class="list-group-item" ng-dblclick="editStep(step)">
+	<span class="badge">
+		<span ng-hide="step.editing">{{step.element}}</span>
+	        <input ng-show="step.editing" ng-model="step.element" ng-blur="doneEditing(step)" style="color: black" autofocus />
+	</span>
+        <b>Content:</b>
+	<span ng-hide="step.editing">{{step.content}}</span>
+        <input ng-show="step.editing" ng-model="step.content" ng-blur="doneEditing(step)" autofocus />
+
+	<br><br>
+
+        <b>Page:</b>
+	<span ng-hide="step.editing">{{step.page}}</span>
+        <input ng-show="step.editing" ng-model="step.page" ng-blur="doneEditing(step)" autofocus />
+
+        <p class="author">Posted by
+          <a ng-href="#/users/{{ step.creatorUID }}">
+            {{ step.creator }}
+          </a>
+	  <a 
+	  ng-click="deleteStep(step)"
+          ng-show="signedIn()">
+          (delete)
+          </a>
+        </p>	
+  </li>
 </ul>
-</div>
 
-  <div ng-repeat="step in steps" class="row cmt">
-    <div class="col-md-12">
-      <p>Step Number: {{ step.number }}</p>
-      <p>Step Content: {{ step.content }}</p>
-      <p>Step Element: {{ step.element }}</p>
-      <p>Step Page: {{ step.page }}</p>
-
-      <p class="author">posted by
-        <a ng-href="#/users/{{ step.creatorUID }}">
-          {{ step.creator }}
-        </a>
-	<a 
-	ng-click="deleteStep(step)"
-        ng-show="signedIn()">
-        (delete)
-      </a>
-      </p>
-    </div>
-  </div>
 
   <div class="cmt-form">
     <div ng-hide="signedIn()">
@@ -69,7 +62,6 @@
     </div>
 
     <form ng-show="signedIn()" ng-submit="addStep()">
-      <input type="text" ng-model="stepNumber" placeholder="Add the Step Number" class="form-control"><br>
       <textarea
         ng-model="stepContent"
         placeholder="Add the Step Content"

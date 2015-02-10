@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('TrainingViewCtrl', function ($scope, $routeParams, Training, Auth) {
+app.controller('TrainingViewCtrl', function ($scope, $firebase, $routeParams, Training, Auth) {
   $scope.training = Training.get($routeParams.trainingId);
 
   $scope.steps = Training.steps($routeParams.trainingId);
@@ -13,14 +13,18 @@ app.controller('TrainingViewCtrl', function ($scope, $routeParams, Training, Aut
     $scope.steps.$remove(step);
   };
 
+  $scope.editStep = function (step) {
+      step.editing = true;
+  }
+
+  $scope.doneEditing = function (step) {
+      step.editing = false;
+      $scope.steps.$save(step);
+  };
+
   $scope.addStep = function () {
     if(!$scope.stepContent || $scope.stepContent === '') {
       $scope.error = "Step content cannot be blank.";
-      return;
-    }
-
-    if(!$scope.stepNumber || $scope.stepNumber === '') {
-      $scope.error = "Step number cannot be blank.";
       return;
     }
 
@@ -30,17 +34,17 @@ app.controller('TrainingViewCtrl', function ($scope, $routeParams, Training, Aut
     }
 
     var step = {
-      number: $scope.stepNumber,
       content: $scope.stepContent,
       element: $scope.stepElement,
       page: $scope.stepPage,
       creator: $scope.user.profile.username,
-      creatorUID: $scope.user.uid
+      creatorUID: $scope.user.uid,
+      editing: false
     };
 
     $scope.steps.$add(step);
 
-    $scope.stepNumber = '';
+    $scope.stepEditing = false;
     $scope.stepContent = '';
     $scope.stepElement = '';
     $scope.stepPage = '';

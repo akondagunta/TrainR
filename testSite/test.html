@@ -42,6 +42,7 @@
 
                     } else if (foundCurrentPage && !onCompleteIsSet) {
                         //set a callback for when the steps are completed on this page
+			intro.setOption('doneLabel', 'Next page');
                         intro.oncomplete(function () {
                             //head over to the next page!
                             window.location.href = data[key].page;

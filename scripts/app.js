@@ -1,9 +1,5 @@
 'use strict';
 
-//app.constant('FIREBASE_URL', 'https://incloudtrn.firebaseio.com/');
-app.constant('FIREBASE_URL', 'https://hakunamatata.firebaseio.com/');
-
-
 var app = angular
   .module('inCloudTrnApp', [
     'ngResource',
@@ -44,3 +40,5 @@ var app = angular
     });
   });
 
+app.constant('FIREBASE_URL', 'https://incloudtrn.firebaseio.com/');
+//app.constant('FIREBASE_URL', 'https://hakunamatata.firebaseio.com/');

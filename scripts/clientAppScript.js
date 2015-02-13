@@ -8,35 +8,17 @@ function clearCurrentStep(authData) {
     currentStep.remove();
 }
 
-function resumeIntro() {
-    var authData = ref.getAuth();
-    if (authData) {
-        //sweet! we can use the existing id
-        console.log("Authenticated successfully:", authData);
-        getJsonAndProcess(authData);
-
-    } else {
-        ref.authAnonymously(function (error, authData) {
-            if (error) {
-                console.log("Login Failed!", error);
-
-            } else {
-                console.log("Authenticated successfully:", authData);
-                getJsonAndProcess(authData);
-            }
-        }, {
-            //forget the id when browser is closed
-            remember: "sessionOnly"
-        });
-    }
+function startIntro() {
+    resumeIntro(true);
 }
 
-function startIntro() {
+function resumeIntro(clearData) {
     var authData = ref.getAuth();
     if (authData) {
         //sweet! we can use the existing id
         console.log("Authenticated successfully:", authData);
-        clearCurrentStep(authData);
+        if (clearData)
+            clearCurrentStep(authData);
         getJsonAndProcess(authData);
 
     } else {
@@ -46,7 +28,8 @@ function startIntro() {
 
             } else {
                 console.log("Authenticated successfully:", authData);
-                clearCurrentStep(authData);
+                if (clearData)
+                    clearCurrentStep(authData);
                 getJsonAndProcess(authData);
             }
         }, {

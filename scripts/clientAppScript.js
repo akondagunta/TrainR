@@ -40,6 +40,7 @@ function authSuccessful(authData, startFresh) {
 function clearCurrentStep(authData) {
     var currentStep = ref.child("currentSteps").child(authData.uid);
     currentStep.remove();
+    console.log("Current step cleared.");
 }
 
 function getJsonAndProcess(authData, startFresh) {
@@ -65,7 +66,7 @@ function getJsonAndProcess(authData, startFresh) {
                 //we found a saved step
 
                 currentStepKey = currentStepForUser.val().currentStep;
-                console.log("starting at " + currentStepKey);
+                console.log("Resuming at step " + currentStepKey);
 
                 var foundStepKey = false;
                 for (var key in data) {
@@ -98,13 +99,16 @@ function getJsonAndProcess(authData, startFresh) {
             //});
 
             if (training.steps.length > 0) {
+                console.log("Starting training with " + training.steps.length + " steps.")
                 intro.setOptions(training);
                 intro.start();
+            } else if (startFresh) {
+                console.log("No steps found for current page!");
             }
         });
 
-    }).fail(function () {
-        console.log("error");
+    }).fail(function (error) {
+        console.log("Error" + error);
     });
 }
 
@@ -114,12 +118,16 @@ function checkStep(authData, data, key, processingStatus, intro, training, curre
         var stepData = {};
         stepData["intro"] = data[key].content;
         stepData["element"] = data[key].element;
+
+        console.log("Found step " + key + " for page " + window.location.pathname);
         training.steps.push(stepData);
+
         processingStatus.foundCurrentPage = true;
 
         //set a callback for when the whole training is done.
         intro.oncomplete(function () {
             clearCurrentStep(authData);
+            console.log("Training complete.");
         });
 
     } else if (processingStatus.foundCurrentPage && !processingStatus.onCompleteIsSet) {

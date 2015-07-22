@@ -18,3 +18,19 @@
     </div>
   </div>
 </div>
+<!-- Home page content, shown only if no user is logged in. -->
+<div class="jumbotron" ng-if="signedIn()===false">
+
+    <h1>TrainR</h1>
+    
+    <p class="lead">Quickly create in cloud training for anything, and anyone!</p>
+    
+    <a href="/#/register" class="btn btn-large btn-primary">Register Now!</a>
+    
+    <br />
+    
+</div>  
+
+<p ng-if="signedIn()===false" class="">Already have an account? <a href="/#/login" >Log In!</a></p>
+
+   

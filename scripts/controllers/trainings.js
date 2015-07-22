@@ -9,5 +9,7 @@ app.controller('TrainingsCtrl', function ($scope, $location, Training, Auth) {
   $scope.deleteTraining = function (training) {
     Training.delete(training);
   };
+    
+  $scope.signedIn = Auth.signedIn;
 
 });

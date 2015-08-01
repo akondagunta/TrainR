@@ -5,6 +5,27 @@ app.controller('AuthCtrl', function ($scope, $location, Auth, user) {
       $location.path('/');
     }
 
+  //Next two functions are used in the view; the login button is disabled if they return false.
+
+  //check if there is a valid email
+  $scope.checkIfEmail = function(){
+    //there will only be a $scope.user.email variable if it is a valid email, because the input type is email
+    if ($scope.user.email) {
+      return true;
+    } else {
+      return false;
+    };
+  }; 
+
+  //check if the user has entered a password
+  $scope.checkIfPwd = function(){
+    if ($scope.user.password===""){
+      return false;
+      }else{
+      return true;
+    };
+  };
+
   $scope.login = function () {
     Auth.login($scope.user).then(function () {
       $location.path('/');

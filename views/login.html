@@ -1,12 +1,15 @@
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <div class="auth-forms">
 
   <h2>Log In</h2>
 
-  <form ng-submit="login()">
+  <form ng-submit="login()" name="loginForm">
     <p ng-show="error" class="text-danger">{{ error }}</p>
-    <input type="email" ng-model="user.email" placeholder="Email" class="form-control"><br>
-    <input type="password" ng-model="user.password" placeholder="Password" class="form-control"><br>
-    <input type="submit" value="Log in" class="btn btn-primary" />
+    <input type="email" ng-model="user.email" placeholder="Email" class="form-control" name="email"><br>
+    <input type="password" ng-model="user.password" placeholder="Password" class="form-control" name="pwd"><br>
+    <!-- Disables the login button if: Email box is unmodified, invalid email, or there is no email. -->
+    <!-- Also disables the login button if the password box is unmodified, or there is no password (e.g. a password was entered then deleted) -->
+    <input type="submit" value="Log in" class="btn btn-primary" ng-disabled="(loginForm.email.$pristine || loginForm.email.$error.email===true || checkIfEmail()===false) || (loginForm.pwd.$pristine || checkIfPwd()===false)" id="submitBtn" />
   </form>
 
 </div>
